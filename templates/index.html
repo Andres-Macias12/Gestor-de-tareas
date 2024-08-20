@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión de Tareas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Gestión de Tareas</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Lista de Tareas</h2>
+            {% if tareas %}
+                <ul>
+                {% for tarea in tareas %}
+                    <li>{{ tarea.titulo }} - {{ tarea.estado }}: {{ tarea.descripcion }}</li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>No hay tareas disponibles.</p>
+            {% endif %}
+        </section>
+
+        <section>
+            <h2>Agregar Tarea</h2>
+            <form action="{{ url_for('agregar_tarea') }}" method="POST">
+                <label for="titulo">Título:</label>
+                <input type="text" id="titulo" name="titulo" required>
+                <label for="descripcion">Descripción:</label>
+                <input type="text" id="descripcion" name="descripcion" required>
+                <button type="submit">Agregar</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>Buscar Tarea</h2>
+            <form action="{{ url_for('buscar_tarea') }}" method="POST">
+                <label for="titulo">Título:</label>
+                <input type="text" id="titulo" name="titulo" required>
+                <button type="submit">Buscar</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>Actualizar Tarea</h2>
+            <form action="{{ url_for('actualizar_tarea') }}" method="POST">
+                <label for="titulo">Título:</label>
+                <input type="text" id="titulo" name="titulo" required>
+                <label for="estado">Estado:</label>
+                <select id="estado" name="estado">
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Completada">Completada</option>
+                </select>
+                <button type="submit">Actualizar</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>Eliminar Tarea</h2>
+            <form action="{{ url_for('eliminar_tarea') }}" method="POST">
+                <label for="titulo">Título:</label>
+                <input type="text" id="titulo" name="titulo" required>
+                <button type="submit">Eliminar</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
